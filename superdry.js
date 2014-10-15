@@ -15,5 +15,5 @@ db.query("INSERT INTO books (title, author) VALUES ($1, $2) RETURNING *",
   console.log(resultSet.rows);
 });
 
-
+db.end();
 

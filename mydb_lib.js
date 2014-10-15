@@ -26,4 +26,8 @@ DB.prototype.query = function(statement, params, callback){
   });
 };
 
+DB.prototype.end = function(){
+ pg.end();
+};
+
 module.exports = DB;
