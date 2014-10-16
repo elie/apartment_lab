@@ -1,36 +1,60 @@
 "use strict"
 
-function Library() {
+var DB = require('./mydb_lib.js');
+
+var db = new DB("library_example_app", 5432, "localhost");
+
+function Book(title, author, id) {
+  this.id = 0;
+  this.title = title;
+  this.author = author;
 }
 
-Library.prototype.books = [];
-
-Library.prototype.add = function(book) {
-	this.books.push(book);
-};
-
-Library.prototype.destroy = function(id) {
-	var allBooks = this.books;
-	allBooks.forEach(function(book) {
-		if(Number(id) === book.id) {
-			var index = allBooks.indexOf(book);
-			allBooks.splice(index, 1);
-		}
+function Library() {
+}
+// DONE!
+Library.prototype.all = function(buzzer) {
+	var allBooks = [];
+	db.query("SELECT * FROM books;", function(err, resultSet){
+    if (err) console.log("SELECT FAILED :-(", err);
+    resultSet.rows.forEach(function(row){
+    	var newBook = new Book(row.title, row.author, row.id);
+    	allBooks.push(newBook);
+    });
+    // Call buzzer with result of query!
+    if(buzzer !== undefined) buzzer(allBooks);
 	});
 };
 
-Library.prototype.findById = function(id) {
-	var foundBook;
-	this.books.forEach(function(book){
-		if(Number(id) === book.id){
-			foundBook = book;
-		}
-	});
-	return foundBook;
+Library.prototype.add = function(title, author, buzzer) {
+	var newBook = {}
+	// TODO
+	// db.query... INSERT
+	// call buzzer with the new book
+	buzzer(newBook);
 };
 
-Library.prototype.all = function() {
-	return this.books;
+Library.prototype.destroy = function(id, buzzer) {
+	// TODO
+	// db.query... DELETE
+	// call buzzer without params when done
+	buzzer();
+};
+
+Library.prototype.update = function(id, title, author, buzzer) {
+	// TODO
+	// db.query... UPDATE
+	// call buzzer without params when done
+	buzzer();
+};
+
+
+Library.prototype.findById = function(id, buzzer) {
+	var foundBook = {}
+	// TODO
+	// db.query... SELECT
+	// call buzzer with the book found
+	buzzer(foundBook);
 };
 
 module.exports = Library;
