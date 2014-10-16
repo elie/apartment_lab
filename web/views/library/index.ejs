@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Title</title>
+<!--   <meta name="description" content="">
+  <meta name="author" content=""> -->
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  <h1>All my books!</h1>
+  <a href="/books/new">Add a new Book</a>
+  <% allBooks.forEach(function(book){ %>
+  <p><%= book.title %> by <%= book.author %></p>
+  <form action="/books/<%= book.id %>?_method=delete" method="post">
+  	<input type="submit" value="Delete">
+  </form>
+  <a href="/books/<%= book.id %>/edit">Edit</a>
+  <% }); %>
+</body>
+</html>
