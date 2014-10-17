@@ -12,18 +12,15 @@ function Book(title, author, id) {
 
 function Library() {
 }
-// DONE!
-Library.prototype.all = function(buzzer) {
+// TOGETHER!
+Library.prototype.all = function() {
 	var allBooks = [];
-	db.query("SELECT * FROM books;", function(err, resultSet){
-    if (err) console.log("SELECT FAILED :-(", err);
-    resultSet.rows.forEach(function(row){
-    	var newBook = new Book(row.title, row.author, row.id);
-    	allBooks.push(newBook);
-    });
-    // Call buzzer with result of query!
-    if(buzzer !== undefined) buzzer(allBooks);
-	});
+
+	// retrieve books
+	allBooks.push(new Book('The Great Gatsby', 'Fitzgerald', 1));
+	allBooks.push(new Book('Tin Drum', 'Grass', 1));
+
+	return allBooks;
 };
 
 Library.prototype.add = function(title, author, buzzer) {

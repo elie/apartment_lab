@@ -21,9 +21,8 @@ app.get('/', function(req, res){
 app.get('/books', function(req, res){
   //DONE!
   console.log("/BOOKS")
-  library.all(function(leBooks) {
-    res.render('library/index', {allBooks: leBooks});
-  });
+  var leBooks = library.all();
+  res.render('library/index', {allBooks: leBooks});
 });
 
 //New
