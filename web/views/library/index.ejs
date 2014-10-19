@@ -10,12 +10,16 @@
 <body>
   <h1>All my books!</h1>
   <a href="/books/new">Add a new Book</a>
+
   <% allBooks.forEach(function(book){ %>
-  <p><%= book.title %> by <%= book.author %></p>
-  <form action="/books/<%= book.id %>?_method=delete" method="post">
-  	<input type="submit" value="Delete">
-  </form>
-  <a href="/books/<%= book.id %>/edit">Edit</a>
+
+  <h3>
+  <a href="/books/<%= book.id%>"><%= book.title %> by <%= book.author %></a>
+  </h3>
+
+
+
+
   <% }); %>
 </body>
 </html>

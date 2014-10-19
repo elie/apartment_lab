@@ -19,62 +19,58 @@ app.get('/', function(req, res){
 
 //Index
 app.get('/books', function(req, res){
-  //DONE!
-  console.log("/BOOKS")
-  var leBooks = library.all();
-  res.render('library/index', {allBooks: leBooks});
+  var allBooks = library.all(function(allBooks){
+    res.render('library/index', {allBooks: allBooks});
+  });
+
 });
 
 //New
 app.get('/books/new', function(req, res){
-  //DONE
 	res.render("library/new");
 });
 
 //Create
 app.post('/books', function(req, res) {
-	//TODO
-  console.log("/books -> Implement me.");
-  // library.add ....
-  res.redirect('/books'); 
+  library.add(req.body.book.title, req.body.book.author, function(){
+    res.redirect('/books');
+  });
 });
 
 //Show
 app.get('/books/:id', function(req, res) {
   var id = req.params.id;
-  //TODO
-  console.log("/books -> Implement me.");
-  // library.findById ...
-  // Add library/show.ejs page and render it with found book
-  // Add "Show" link on '/books' page.
-  res.send("implement show book. showing book " + req.params.id);
+  library.findById(id, function(foundBook){
+    res.render('library/show', {book:foundBook});
+  });
 });
 
 //Edit
 app.get('/books/:id/edit', function(req, res) {
 	var id = req.params.id;
-  //TODO
-  console.log("/books/:id/edit -> Implement me.");
-  // library.findById ...
-  var foundBook = {};
-  res.render('library/edit', {book: foundBook});
+  library.findById(id,function(foundBook){
+    res.render('library/edit', {book: foundBook});
+  });
 });
 
 //Update
 app.put('/books/:id', function(req, res) {
-	var id = req.params.id;
-  //TODO
-  console.log("/books/:id -> Implement me.");
-  // library.update ...
-  res.redirect('/books');
+
+  var id = req.params.id;
+  var title = req.body.book.title;
+  var author = req.body.book.author;
+
+  library.update(id, title, author, function(){
+    res.redirect('/books');
+  });
 });
 
 //Delete
 app.delete('/books/:id', function(req, res) {
 	var id = req.params.id;
-  //TODO
-  // library.destroy ...
-  res.redirect('/books');
+  library.destroy(id, function(){
+    res.redirect('/books');
+  });
 });
 
 var server = app.listen(3000, function() {

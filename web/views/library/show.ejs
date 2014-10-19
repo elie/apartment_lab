@@ -1,0 +1,15 @@
+<h1>Here is some info about your book</h1>
+
+<ul>
+  <li><%= book.id%></li>
+  <li><%= book.title%></li>
+  <li><%= book.author%></li>
+</ul>
+
+<p>
+  <a href="/books/<%= book.id %>/edit">Edit</a>
+  </p>
+
+  <form action="/books/<%= book.id %>?_method=delete" method="post">
+    <input type="submit" value="Delete">
+  </form>
